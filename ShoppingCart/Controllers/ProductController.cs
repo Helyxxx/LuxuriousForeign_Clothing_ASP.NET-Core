@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart.Authorization;
 using ShoppingCart.Data;
 using ShoppingCart.Models;
 
@@ -26,11 +27,21 @@ namespace ShoppingCart.Controllers
 
         // GET: Product
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string categorySelected)
         {
-            return _context.Product != null ?
-                        View(await _context.Product.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+            var categories = from c in _context.Category orderby c.CategoryName select c.CategoryName;
+            var productAdded = (from c in _context.Cart where c.UserID == _userManager.GetUserId(User) select c.ProductID).ToList();
+            var products = (from p in _context.Product select p).Where(e => !productAdded.Contains(e.ProductID));
+
+            if (!string.IsNullOrEmpty(categorySelected))
+            {
+                products = products.Where(x => x.Category == categorySelected);
+            }
+
+            ViewBag.Selected = categorySelected;
+            ViewBag.CategoryList = categories;
+
+            return View(products);
         }
 
         // GET: Product/Details/5
@@ -43,7 +54,7 @@ namespace ShoppingCart.Controllers
             }
 
             var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+                .FirstOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {
                 return NotFound();
@@ -101,7 +112,7 @@ namespace ShoppingCart.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Category,Description,ImgUrl")] Product product)
         {
-            if (id != product.ProductId)
+            if (id != product.ProductID)
             {
                 return NotFound();
             }
@@ -115,7 +126,7 @@ namespace ShoppingCart.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductId))
+                    if (!ProductExists(product.ProductID))
                     {
                         return NotFound();
                     }
@@ -168,7 +179,7 @@ namespace ShoppingCart.Controllers
 
         private bool ProductExists(int id)
         {
-            return (_context.Product?.Any(e => e.ProductId == id)).GetValueOrDefault();
+            return (_context.Product?.Any(e => e.ProductID == id)).GetValueOrDefault();
         }
     }
 }

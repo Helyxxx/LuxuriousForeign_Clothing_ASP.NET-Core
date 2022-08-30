@@ -1,19 +1,22 @@
 ﻿@model IEnumerable<ShoppingCart.Models.Cart>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Your Cart";
+
+    var sum = 0M;
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*<p><a asp-action="Create">Create New</a></p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
+                @Html.DisplayNameFor(model => model.Product.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -21,33 +24,41 @@
             <th>
                 @Html.DisplayNameFor(model => model.Paid)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CartID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CartID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CartID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            sum += item.Product.Price * item.Quantity;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    $ @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Update", "Cart", FormMethod.Post))
+                    {
+                        <input type="hidden" name="id" id="id" value="@item.CartID" />
+                        <input type="number" name="quantity" id="quantity" value="@item.Quantity" />
+                        <input type="submit" value="Update" />
+                    }
+
+                    @*@Html.DisplayFor(modelItem => item.Quantity)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paid)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.CartID">Edit</a> |*@
+                    <a asp-action="Details" asp-route-id="@item.CartID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CartID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+    <br />
+    <h3>Total: $ @sum</h3>
 </table>

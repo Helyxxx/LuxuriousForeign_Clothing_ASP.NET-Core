@@ -1,23 +1,69 @@
 ﻿@model IEnumerable<ShoppingCart.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+@*<p>@ViewBag.Selected</p>*@
+@*<p>@ViewBag.CategoryList</p>*@
+
+@*
+<form asp-controller="Product" asp-action="Index" method="get">
+    <p>
+        <select asp-for="CategorySelected" asp-items=@ViewBag.CategoryList>
+            <option value="">All</option>
+        </select>
+    </p>
+</form>
+*@
+
+<div>
+    @if (string.IsNullOrEmpty(ViewBag.Selected))
+    {
+        <strong> All </strong>
+    }
+    else
+    {
+        <a asp-action="index" asp-route-categorySelected="">All</a>
+    }
+    @foreach (var item in ViewBag.CategoryList)
+    {
+        if (ViewBag.Selected == item)
+        {
+            <span> | </span>
+
+            <strong>@item</strong>
+        }
+        else
+        {
+            <span> | </span>
+
+            <a asp-action="index" asp-route-categorySelected="@item">@item</a>
+        }
+    }
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
@@ -31,29 +77,46 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> @*|*@
-                @*<a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>*@
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImgUrl)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                            <span> | </span>
+                        }
+                        else
+                        {
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.ProductID">Add to Cart</a>
+                            <span> | </span>
+                        }
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> @*|*@
+                    @*<a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>*@
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

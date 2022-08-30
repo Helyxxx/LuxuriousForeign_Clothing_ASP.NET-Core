@@ -74,6 +74,43 @@ namespace ShoppingCart.Controllers
             return View(cart);
         }
 
+        // POST: Cart/Add
+
+
+        public async Task<IActionResult> Add(int id)
+        {
+            if (id > 0)
+            {
+                Cart newCart = new Cart();
+                newCart.ProductID = id;
+                newCart.Quantity = 1;
+                newCart.UserID = _userManager.GetUserId(User);
+                newCart.Paid = false;
+
+                Console.WriteLine($"product id: {newCart.CartID}");
+
+                _context.Add(newCart);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("index","Product");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, int quantity)
+        {
+            var cartFound = _context.Cart.AsNoTracking().FirstOrDefault(e => e.CartID == id);
+
+            if (cartFound != null)
+            {
+                var newCart = new Cart() { CartID = id, Quantity = quantity };
+                _context.Cart.Attach(newCart);
+                _context.Entry(newCart).Property(x => x.Quantity).IsModified = true;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Cart/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -160,14 +197,14 @@ namespace ShoppingCart.Controllers
             {
                 _context.Cart.Remove(cart);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CartExists(int id)
         {
-          return (_context.Cart?.Any(e => e.CartID == id)).GetValueOrDefault();
+            return (_context.Cart?.Any(e => e.CartID == id)).GetValueOrDefault();
         }
     }
 }

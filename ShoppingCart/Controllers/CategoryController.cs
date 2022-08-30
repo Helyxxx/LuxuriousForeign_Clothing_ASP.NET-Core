@@ -27,9 +27,9 @@ namespace ShoppingCart.Controllers
         // GET: Category
         public async Task<IActionResult> Index()
         {
-              return _context.Category != null ? 
-                          View(await _context.Category.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Category'  is null.");
+            return _context.Category != null ?
+                        View(await _context.Category.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Category'  is null.");
         }
 
         //// GET: Category/Details/5
@@ -65,8 +65,13 @@ namespace ShoppingCart.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                var categoryFound = _context.Category.Where(e => e.CategoryName == category.CategoryName).Count();
+                if (categoryFound <= 0)
+                {
+                    _context.Add(category);
+                    await _context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(category);

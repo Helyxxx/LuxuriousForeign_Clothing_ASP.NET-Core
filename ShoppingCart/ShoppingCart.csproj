@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Image\" />
+    <Folder Include="wwwroot\Image\Men\" />
+    <Folder Include="wwwroot\Image\Children\" />
+    <Folder Include="wwwroot\Image\Women\" />
   </ItemGroup>
 
 </Project>

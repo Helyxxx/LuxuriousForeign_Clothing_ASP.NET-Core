@@ -1,1 +1,1 @@
-# LuxuriousForeign_Clothing_ASP.NET-Core
+# Team Name: Luxurious Foreign 

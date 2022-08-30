@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.Product.ProductName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Product.Category)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Product.Price)
             </th>
             <th>
@@ -34,6 +37,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Category)
                 </td>
                 <td>
                     $ @Html.DisplayFor(modelItem => item.Product.Price)

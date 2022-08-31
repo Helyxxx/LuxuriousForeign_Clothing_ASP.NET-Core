@@ -24,7 +24,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                @*<input asp-for="Category" class="form-control" />*@
+                <select asp-for="Category" asp-items="@ViewBag.CatList">
+                    @*<option value="">All</option>*@
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">

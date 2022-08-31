@@ -67,6 +67,7 @@ namespace ShoppingCart.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
+            ViewBag.CatList = new SelectList((from c in _context.Category orderby c.CategoryName select c.CategoryName).Distinct().ToList());
             return View();
         }
 

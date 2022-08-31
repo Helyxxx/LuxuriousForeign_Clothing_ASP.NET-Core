@@ -56,7 +56,8 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @*@Html.DisplayNameFor(model => model.ProductName)*@
+                Product Name
             </th>
             @if (User.Identity.IsAuthenticated)
             {
@@ -71,7 +72,8 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImgUrl)
+                @*@Html.DisplayNameFor(model => model.ImgUrl)*@
+                Image
             </th>
             <th></th>
         </tr>

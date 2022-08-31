@@ -141,42 +141,42 @@ namespace ShoppingCart.Controllers
             return View(product);
         }
 
-        //// GET: Product/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null || _context.Product == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Product/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Product == null)
+            {
+                return NotFound();
+            }
 
-        //    var product = await _context.Product
-        //        .FirstOrDefaultAsync(m => m.ProductId == id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var product = await _context.Product
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(product);
-        //}
+            return View(product);
+        }
 
-        //// POST: Product/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.Product == null)
-        //    {
-        //        return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
-        //    }
-        //    var product = await _context.Product.FindAsync(id);
-        //    if (product != null)
-        //    {
-        //        _context.Product.Remove(product);
-        //    }
+        // POST: Product/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Product == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+            }
+            var product = await _context.Product.FindAsync(id);
+            if (product != null)
+            {
+                _context.Product.Remove(product);
+            }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool ProductExists(int id)
         {

@@ -40,7 +40,7 @@
             @Html.DisplayNameFor(model => model.ImgUrl)
         </dt>
         <dd class="col-sm-10 text-info">
-            <img src="~/@Model.ImgUrl" height="300" width="200" />
+            <img style="display: block;" src="~/@Model.ImgUrl" height="300" width="200" />
         </dd>
     </dl>
 </div>
@@ -61,3 +61,8 @@
     }
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+@*<img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-out;
+    background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/782127/88414268-92d83a00-cdaa-11ea-9b4c-db67d95be039.png" width="1591" height="1110">
+*@

@@ -95,7 +95,7 @@ namespace ShoppingCart.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Price,Category,Description,ImgUrl")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductID,ProductName,Price,Category,Description,ImgUrl")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +131,7 @@ namespace ShoppingCart.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Category,Description,ImgUrl")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductID,ProductName,Price,Category,Description,ImgUrl")] Product product)
         {
             if (id != product.ProductID)
             {

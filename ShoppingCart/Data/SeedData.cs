@@ -132,7 +132,7 @@ namespace ShoppingCart.Data
                 new Product
                 {
                     ProductName = "Diliana Alexieva-Bosseva",
-                    Category = "men",
+                    Category = "Men",
                     Description = "desc",
                     Price = 9.99M,
                 }

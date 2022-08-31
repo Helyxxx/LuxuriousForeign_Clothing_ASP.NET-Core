@@ -8,6 +8,7 @@ namespace ShoppingCart.Models
         public int ProductID { get; set; }
         [DisplayName("Product Name")]
         public string ProductName { get; set; }
+        
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         public string Category { get; set; }

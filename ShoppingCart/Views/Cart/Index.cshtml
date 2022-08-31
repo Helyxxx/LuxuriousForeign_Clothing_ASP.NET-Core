@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ShoppingCart.Models.Cart>
+﻿@using System.Globalization
+@model IEnumerable<ShoppingCart.Models.Cart>
 
 @{
     ViewData["Title"] = "Your Cart";
@@ -18,15 +19,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Product.Category)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Price)
-            </th>
             <th class="col-sm-2 text-info">
                 @Html.DisplayNameFor(model => model.Product.ImgUrl)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Product.Price)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
+            <th>Sub Total</th>
             <th>
                 @Html.DisplayNameFor(model => model.Paid)
             </th>
@@ -45,10 +47,10 @@
                     @Html.DisplayFor(modelItem => item.Product.Category)
                 </td>
                 <td>
-                    $ @Html.DisplayFor(modelItem => item.Product.Price)
+                    <img src="~/@item.Product.ImgUrl" height="100" />
                 </td>
                 <td>
-                    <img src="~/@item.Product.ImgUrl" height="100" />
+                    @Html.DisplayFor(modelItem => item.Product.Price)
                 </td>
                 <td>
                     @using (Html.BeginForm("Update", "Cart", FormMethod.Post))
@@ -58,6 +60,7 @@
                         <input type="submit" value="Update" />
                     }
                 </td>
+                <td>@((item.Quantity * item.Product.Price).ToString("C", CultureInfo.CurrentCulture))</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Paid)
                 </td>
@@ -69,6 +72,5 @@
             </tr>
         }
     </tbody>
-    <br />
-    <h3 class ="text-info">Total: $ @sum</h3>
 </table>
+<h3 class="text-info">Total: @(sum.ToString("C", CultureInfo.CurrentCulture))</h3>

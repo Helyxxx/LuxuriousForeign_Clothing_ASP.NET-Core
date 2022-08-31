@@ -4,7 +4,7 @@
     ViewData["Title"] = "Products";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-info">@ViewData["Title"]</h1>
 
 @if (User.IsInRole("Admin"))
 {
@@ -28,7 +28,7 @@
 <div>
     @if (string.IsNullOrEmpty(ViewBag.Selected))
     {
-        <strong> All </strong>
+        <strong class="text-info"> All </strong>
     }
     else
     {
@@ -52,8 +52,8 @@
 </div>
 
 
-<table class="table">
-    <thead>
+<table class="table text-info">
+    <thead class="text-info">
         <tr>
             <th>
                 @*@Html.DisplayNameFor(model => model.ProductName)*@

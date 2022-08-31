@@ -107,6 +107,7 @@ namespace ShoppingCart.Data
                     Category = "Women",
                     Description = "desc",
                     Price = 9.99M,
+                    ImgUrl = "Image/Women/dress1.jfif"
                 },
                 new Product
                 {
@@ -114,6 +115,7 @@ namespace ShoppingCart.Data
                     Category = "Men",
                     Description = "desc",
                     Price = 9.99M,
+                    ImgUrl = "Image/Men/menTops1.jfif"
                 },
                 new Product
                 {
@@ -121,6 +123,8 @@ namespace ShoppingCart.Data
                     Category = "Children",
                     Description = "desc",
                     Price = 9.99M,
+                    ImgUrl = "Image/Men/menTops2.jfif"
+
                 },
                 new Product
                 {
@@ -128,6 +132,7 @@ namespace ShoppingCart.Data
                     Category = "Women",
                     Description = "desc",
                     Price = 9.99M,
+                    ImgUrl = "Image/Women/dress2.jfif"
                 },
                 new Product
                 {
@@ -135,6 +140,7 @@ namespace ShoppingCart.Data
                     Category = "Men",
                     Description = "desc",
                     Price = 9.99M,
+                    ImgUrl = "Image/Men/menTops3.jfif"
                 }
              );
             context.SaveChanges();

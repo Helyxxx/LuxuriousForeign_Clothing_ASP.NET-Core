@@ -56,8 +56,7 @@
     <thead class="text-info">
         <tr>
             <th>
-                @*@Html.DisplayNameFor(model => model.ProductName)*@
-                Product Name
+                @Html.DisplayNameFor(model => model.ProductName)
             </th>
             @if (User.Identity.IsAuthenticated)
             {
@@ -97,8 +96,8 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @* <img href="./Image/logoFinal.jpg"/> *@
-                    @Html.DisplayFor(modelItem => item.ImgUrl)
+                    <img src="@item.ImgUrl" height="100" />
+                    @*<img src="Image/logoFinal.jpg" height="100" />*@
                 </td>
                 <td>
                     @if (User.Identity.IsAuthenticated)

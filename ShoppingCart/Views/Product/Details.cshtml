@@ -10,8 +10,7 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2 text-info">
-            @*@Html.DisplayNameFor(model => model.ProductName)*@
-            Product Name
+            @Html.DisplayNameFor(model => model.ProductName)
         </dt>
         <dd class="col-sm-10 text-info">
             @Html.DisplayFor(model => model.ProductName)
@@ -41,7 +40,7 @@
             @Html.DisplayNameFor(model => model.ImgUrl)
         </dt>
         <dd class="col-sm-10 text-info">
-            @Html.DisplayFor(model => model.ImgUrl)
+            <img src="~/@Model.ImgUrl" height="300" />
         </dd>
     </dl>
 </div>

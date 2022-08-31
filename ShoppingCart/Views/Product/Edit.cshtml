@@ -25,7 +25,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                @*<input asp-for="Category" class="form-control" />*@
+                <select asp-for="Category" asp-items="@ViewBag.CatList">
+                    @*<option value="">All</option>*@
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,7 +39,10 @@
             <div class="form-group">
                 <img src="~/@Model.ImgUrl" height="300" />
                 <label asp-for="ImgUrl" class="control-label"></label>
-                <input asp-for="ImgUrl" class="form-control" />
+                @*<input asp-for="ImgUrl" class="form-control" />*@
+                <select asp-for="ImgUrl" asp-items="@ViewBag.Images">
+                    @*<option value="">All</option>*@
+                </select>
                 <span asp-validation-for="ImgUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,5 +57,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

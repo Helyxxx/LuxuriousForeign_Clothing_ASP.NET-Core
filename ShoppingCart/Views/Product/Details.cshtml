@@ -45,10 +45,19 @@
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Admin"))
+    @if (User.Identity.IsAuthenticated)
     {
-        <a asp-action="Edit" asp-route-id="@Model?.ProductID">Edit</a>
-        <span> | </span>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a>
+            <span> | </span>
+        }
+        else
+        {
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.ProductID">Add to Cart</a>
+            <span> | </span>
+        }
     }
     <a asp-action="Index">Back to List</a>
 </div>

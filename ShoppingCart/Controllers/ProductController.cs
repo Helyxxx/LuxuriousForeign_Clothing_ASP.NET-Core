@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,27 @@ namespace ShoppingCart.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private SelectList _ImgList, _CatList;
 
         public ProductController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
+            _CatList = new SelectList((from c in _context.Category orderby c.CategoryName select c.CategoryName).Distinct().ToList());
+
+            var ImgPaths = new ArrayList();
+            foreach (string d in Directory.GetDirectories("wwwroot\\Image"))
+            {
+                foreach (string f in Directory.GetFiles(d))
+                {
+                    var rp = f.Split("wwwroot\\")[1];
+                    if (rp != null)
+                    {
+                        ImgPaths.Add(rp);
+                    }
+                }
+            }
+            _ImgList = new SelectList(ImgPaths);
         }
 
         // GET: Product
@@ -67,7 +84,8 @@ namespace ShoppingCart.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            ViewBag.CatList = new SelectList((from c in _context.Category orderby c.CategoryName select c.CategoryName).Distinct().ToList());
+            ViewBag.Images = _ImgList;
+            ViewBag.CatList = _CatList;
             return View();
         }
 
@@ -102,6 +120,8 @@ namespace ShoppingCart.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Images = _ImgList;
+            ViewBag.CatList = _CatList;
             return View(product);
         }
 

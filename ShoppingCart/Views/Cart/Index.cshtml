@@ -29,10 +29,12 @@
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th>Sub Total</th>
-            <th>
+
+            @*May use the below for future aplications*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.Paid)
             </th>
-            <th></th>
+            <th></th>*@
         </tr>
     </thead>
     <tbody>
@@ -61,9 +63,11 @@
                     }
                 </td>
                 <td>@((item.Quantity * item.Product.Price).ToString("C", CultureInfo.CurrentCulture))</td>
-                <td>
+
+                @*May use the below for future aplications*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Paid)
-                </td>
+                </td>*@
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.CartID">Edit</a> |*@
                     <a asp-action="Details" asp-route-id="@item.CartID">Details</a> |

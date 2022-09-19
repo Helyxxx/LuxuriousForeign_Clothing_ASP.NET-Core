@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Data;
 using ShoppingCart.Models;
@@ -32,6 +28,7 @@ namespace ShoppingCart.Controllers
                         Problem("Entity set 'ApplicationDbContext.Category'  is null.");
         }
 
+        //May use the below for future aplications 
         //// GET: Category/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{
@@ -77,6 +74,7 @@ namespace ShoppingCart.Controllers
             return View(category);
         }
 
+        //May use the below for future aplications 
         //// GET: Category/Edit/5
         //public async Task<IActionResult> Edit(int? id)
         //{

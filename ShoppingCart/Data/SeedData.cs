@@ -5,7 +5,6 @@ using ShoppingCart.Models;
 
 namespace ShoppingCart.Data
 {
-
     public static class SeedData
     {
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
@@ -70,11 +69,6 @@ namespace ShoppingCart.Data
             }
 
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
-
-            //if (userManager == null)
-            //{
-            //    throw new Exception("userManager is null");
-            //}
 
             var user = await userManager.FindByIdAsync(uid);
 

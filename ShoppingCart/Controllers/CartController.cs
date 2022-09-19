@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,31 +45,6 @@ namespace ShoppingCart.Controllers
 
             return View(cart);
         }
-
-        //// GET: Cart/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["ProductID"] = new SelectList(_context.Product, "ProductId", "ProductId");
-        //    return View();
-        //}
-
-        //// POST: Cart/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("CartID,UserID,ProductID,Quantity,Paid")] Cart cart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(cart);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ProductID"] = new SelectList(_context.Product, "ProductId", "ProductId", cart.ProductID);
-        //    return View(cart);
-        //}
-
 
         // POST: Cart/Add
         public async Task<IActionResult> Add(int id)
@@ -128,8 +99,6 @@ namespace ShoppingCart.Controllers
         }
 
         // POST: Cart/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CartID,UserID,ProductID,Quantity,Paid")] Cart cart)
